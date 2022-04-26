@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "parcel app/*.html --open --port 3000",
+    "build": "parcel build app/*.html --no-source-maps --public-url ./"
+  },
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.4.1",
+    "@parcel/resolver-glob": "^2.4.1",
+    "@parcel/transformer-image": "^2.4.1",
+    "@parcel/transformer-inline-string": "^2.5.0",
+    "@parcel/transformer-sass": "^2.4.1",
+    "@parcel/transformer-webmanifest": "^2.4.1",
+    "cssnano": "^5.1.7",
+    "parcel": "^2.4.1",
+    "postcss": "^8.4.12",
+    "process": "^0.11.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.49.11"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 5 versions",
+    "not dead",
+    "not IE 11"
+  ]
+}
