@@ -1,0 +1,13 @@
+.dealButton {
+  text-transform: uppercase;
+  background-color: #e4e4e4;
+  box-shadow: 0 0 0 3px #999999;
+  border-radius: 4px;
+  font-size: 22px;
+  color: #222;
+  will-change: transform;
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 4px #999999;
+  }
+}

@@ -1,0 +1,29 @@
+.combinations {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  td {
+    border: 2px solid #38c04f;
+    font-size: 16px;
+    text-shadow: 0 0 5px #000;
+    text-transform: uppercase;
+    color: #f0f0f0;
+    padding: 3px 0;
+    transition: all 0.2s;
+    &:not(:first-child) {
+      text-align: right;
+      width: 96px;
+      padding-right: 20px;
+    }
+    &.name {
+      padding-left: 15px;
+      color: #d8db4a;
+    }
+    &.active-line {
+      background-color: #bc0d0d;
+    }
+    &.winning {
+      background-color: #dace2c;
+    }
+  }
+}

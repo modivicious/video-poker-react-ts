@@ -1,7 +1,15 @@
-import React from "react";
+import * as React from "react";
+
+import PokerTable from "./containers/PokerTable";
+import Controls from "./containers/Controls";
 
 const App = () => {
-  return <h1>Whatever</h1>;
+  return (
+    <div className="mainContainer">
+      <PokerTable />
+      <Controls />
+    </div>
+  );
 };
 
 export default App;

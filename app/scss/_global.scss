@@ -3,16 +3,7 @@ body {
   height: 100%;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.main {
-  flex-grow: 1;
-}
-
-.visually-hidden {
+.visuallyHidden {
   position: absolute;
   clip: rect(0 0 0 0);
   width: 1px;
@@ -21,6 +12,21 @@ body {
   overflow: hidden;
 }
 
-.hide-overflow {
+.hideOverflow {
   overflow: hidden;
+}
+
+.mainContainer {
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+
+  display: grid;
+  justify-items: center;
+  gap: 90px;
+  padding: 15px 0;
+}
+
+button:disabled {
+  cursor: default;
 }
