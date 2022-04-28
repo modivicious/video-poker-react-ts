@@ -6,12 +6,18 @@ import DealButton from "../../components/DealButton";
 
 import * as styles from "./Controls.module.scss";
 
-const Controls = () => {
+type ControlsProps = {
+  currentBet: number;
+  onPlus: () => void;
+  onMinus: () => void;
+};
+
+const Controls = ({ currentBet, onPlus, onMinus }: ControlsProps) => {
   return (
     <div className={styles.controls}>
       <Balance balance={50000} />
-      <Bets currentBet={10000}/>
-      <DealButton text="Deal"/>
+      <Bets currentBet={currentBet} onPlus={onPlus} onMinus={onMinus} />
+      <DealButton text="Deal" />
     </div>
   );
 };
