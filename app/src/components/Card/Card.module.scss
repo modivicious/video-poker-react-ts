@@ -45,7 +45,7 @@
 
 .point {
   display: inline-block;
-  // @extend %cardchars;
+  font-family: "CardChars", serif;
   font-size: 22px;
   line-height: 1;
   letter-spacing: -0.08em;
@@ -65,4 +65,8 @@
     width: 15px;
     height: 15px;
   }
+}
+
+.turned {
+  transform: rotate(-180deg);
 }

@@ -1,26 +1,43 @@
 import * as React from "react";
 import cx from "classnames";
 
+import getPoint from "../../functions/getPoint";
+
+import svgSuits from "../../../images/icons/*.svg";
 import * as styles from "./Card.module.scss";
 
-const Card = () => {
+type CardProps = {
+  card: {
+    suit: string;
+    point: number;
+  };
+  isRoundFinished: boolean;
+};
+
+const Card = ({
+  card = { suit: "", point: 0 },
+  isRoundFinished,
+}: CardProps) => {
+  const point = getPoint(card.point);
+  const suitColor =
+    card.suit === "diamonds" || card.suit === "hearts" ? "red" : "black";
   return (
-    <div className={styles.card}>
+    <div className={cx(styles.card, { [styles.flip]: !isRoundFinished })}>
       <div className={cx(styles.side, styles.front)}>
         <div className={styles.info}>
-          <span className={styles.point}></span>
+          <span className={cx(styles.point, styles[suitColor])}>{point}</span>
           <img
             className={cx(styles.suit, styles.small)}
-            src="../../images/content/1x1.webp"
+            src={svgSuits[card.suit]}
             alt=""
           />
         </div>
-        <img className={styles.suit} src="images/content/1x1.webp" alt="" />
+        <img className={styles.suit} src={svgSuits[card.suit]} alt="" />
         <div className={cx(styles.info, styles.turned)}>
-          <span className={styles.point}></span>
+          <span className={cx(styles.point, styles[suitColor])}>{point}</span>
           <img
             className={cx(styles.suit, styles.small)}
-            src="../../images/content/1x1.webp"
+            src={svgSuits[card.suit]}
             alt=""
           />
         </div>

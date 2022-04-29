@@ -4,31 +4,44 @@
 @import "libs";
 @import "global";
 
-.display {
-  border: 4px solid #999;
-  border-radius: 3px;
-  background-color: #fff;
+.mainContainer {
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+
+  display: grid;
+  justify-items: center;
+  gap: 90px;
+  padding: 15px 0;
+}
+
+.cards {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  span {
-    text-transform: uppercase;
-    margin-right: 10px;
+}
+
+.cardWithButton {
+  &:not(:last-child) {
+    margin-right: 30px;
   }
 }
 
-.button {
-  width: 140px;
+.controls {
+  width: 100%;
   height: 60px;
-  border-radius: 3px;
-  color: #fff;
-  font-size: 16px;
-  transition: all 0.15s;
-  * {
-    position: relative;
-    z-index: -1;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+}
+
+.pokerTable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 10px;
+  background: radial-gradient(circle, #19a030 0%, #0f8c23 100%);
 }
 
 @import "media";

@@ -8,7 +8,7 @@ type BalanceProps = {
 };
 
 const Balance = ({ balance }: BalanceProps) => {
-  return <div className={cx(styles.balanceDisplay, "display")}>{balance}</div>;
+  return <div className={cx(styles.balanceDisplay, "display")}>${balance}</div>;
 };
 
 export default Balance;
