@@ -22,7 +22,7 @@ const Card = ({
   const suitColor =
     card.suit === "diamonds" || card.suit === "hearts" ? "red" : "black";
   return (
-    <div className={cx(styles.card, { [styles.flip]: !isRoundFinished })}>
+    <div className={cx(styles.card, { [styles.flip]: true })}>
       <div className={cx(styles.side, styles.front)}>
         <div className={styles.info}>
           <span className={cx(styles.point, styles[suitColor])}>{point}</span>

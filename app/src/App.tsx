@@ -13,11 +13,17 @@ import Deck from "./functions/Deck";
 const startBalance: number = 50000;
 const bets: number[] = [10000, 20000, 30000, 40000, 50000];
 
+let deck: Deck;
+const createDeck = () => {
+  deck = new Deck();
+};
+
 const App = () => {
   const [balance, setBalance] = useState(startBalance);
   const [betIndex, setBetIndex] = useState(0);
   const [isRoundFinished, setIsRoundFinished] = useState(true);
   const [cards, setCards] = useState([]);
+  const [holdCards, setHoldCards] = useState([]);
 
   const onPlus = (): void => {
     if (betIndex < bets.length - 1) setBetIndex(betIndex + 1);
@@ -29,18 +35,38 @@ const App = () => {
 
   const onDeal = (): void => {
     if (isRoundFinished) {
-      const deck = new Deck();
+      createDeck();
       deck.shuffle();
       setCards(deck.distribution());
+    } else {
+      setCards((prev) =>
+        prev.map((card) =>
+          holdCards.some((holdCard) => holdCard.id === card.id)
+            ? card
+            : deck.getTopCard()
+        )
+      );
     }
     setIsRoundFinished(!isRoundFinished);
+  };
+
+  const onHold = (card): void => {
+    if (holdCards.find((item) => item.id === card.id)) {
+      setHoldCards((prev) => prev.filter((item) => item.id !== card.id));
+    } else {
+      setHoldCards((prev) => [...prev, card]);
+    }
   };
 
   return (
     <div className="mainContainer">
       <PokerTable>
         <CombinationsTable />
-        <Cards cards={cards} isRoundFinished={isRoundFinished} />
+        <Cards
+          cards={cards}
+          isRoundFinished={isRoundFinished}
+          onHold={onHold}
+        />
       </PokerTable>
       <Controls>
         <Balance balance={balance} />

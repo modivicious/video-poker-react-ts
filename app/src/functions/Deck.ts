@@ -9,9 +9,13 @@ class Deck {
   }
   create(): void {
     const suits = ["diamonds", "clubs", "hearts", "spades"];
-    for (let a = 0; a < 13; a++)
-      for (let b = 0; b < 4; b++)
-        this.cards[b * 13 + a] = new Card(suits[b], a + 2);
+    for (let point = 0; point < 13; point++)
+      for (let suit = 0; suit < 4; suit++)
+        this.cards[suit * 13 + point] = new Card(
+          suits[suit],
+          point + 2,
+          suit * 13 + point
+        );
   }
   shuffle(): void {
     for (let i = 0; i < 52; i++) {
@@ -23,7 +27,7 @@ class Deck {
     return this.cards.pop();
   }
   distribution(): Card[] {
-    const cards = [];
+    let cards = [];
     for (let i = 0; i < 5; i++) cards[i] = this.getTopCard();
     return cards;
   }
