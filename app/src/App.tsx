@@ -46,6 +46,7 @@ const App = () => {
             : deck.getTopCard()
         )
       );
+      setHoldCards([]);
     }
     setIsRoundFinished(!isRoundFinished);
   };

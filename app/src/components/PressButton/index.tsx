@@ -7,12 +7,14 @@ type PressButtonProps = {
   text: string;
   onClick?: () => void;
   isActive?: boolean;
+  isDisabled?: boolean;
 };
 
 const PressButton = ({
   text,
   onClick = () => {},
   isActive = false,
+  isDisabled = false,
 }: PressButtonProps) => {
   return (
     <button
@@ -22,6 +24,7 @@ const PressButton = ({
         "button"
       )}
       onClick={() => onClick()}
+      disabled={isDisabled}
       type="button"
     >
       <span> {text} </span>

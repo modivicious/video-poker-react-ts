@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Card from "../components/Card";
 import PressButton from "../components/PressButton";
@@ -25,10 +25,19 @@ const CardWithButton = ({
     onHold(card);
   };
 
+  useEffect(() => {
+    if (!isRoundFinished) setIsHold(false);
+  }, [isRoundFinished]);
+
   return (
     <div className="cardWithButton">
       <Card card={card} isRoundFinished={isRoundFinished} />
-      <PressButton text="Hold" onClick={onButtonClick} isActive={isHold} />
+      <PressButton
+        text="Hold"
+        onClick={onButtonClick}
+        isActive={isHold}
+        isDisabled={isRoundFinished}
+      />
     </div>
   );
 };
