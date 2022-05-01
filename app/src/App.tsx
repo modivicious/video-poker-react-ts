@@ -76,7 +76,7 @@ const App = () => {
     <>
       <div className="mainContainer">
         <PokerTable>
-          <CombinationsTable />
+          <CombinationsTable activeCol={betIndex} winningCell={result - 1} />
           <Cards
             cards={cards}
             isRoundFinished={isRoundFinished}
