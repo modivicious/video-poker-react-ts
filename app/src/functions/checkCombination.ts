@@ -3,7 +3,6 @@ import sortBySuits from "./sortBySuits";
 import getCountOfDuplicates from "./getCountOfDuplicates";
 
 const checkCombination = (cards): { name: string; id: number } => {
-  console.log(cards);
   cards = sortByPoints(cards);
   cards = sortBySuits(cards);
 

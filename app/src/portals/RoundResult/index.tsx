@@ -5,16 +5,18 @@ import cx from "classnames";
 import * as styles from "./RoundResult.module.scss";
 
 type RoundResultProps = {
-  result: number;
+  resultAmount: number;
   isOpen: boolean;
 };
 
-const RoundResult = ({ result, isOpen }: RoundResultProps) => {
+const RoundResult = ({ resultAmount, isOpen }: RoundResultProps) => {
   if (!isOpen) return null;
   return createPortal(
     <div className={cx(styles.result, "modal")}>
-      <p className={styles.text}>{result > 0 ? "payout:" : "you lose"}</p>
-      <span>123</span>
+      <p className={styles.text}>
+        {resultAmount >= 0 ? "payout:" : "you lose:"}
+      </p>
+      <span>${Math.abs(resultAmount)}</span>
     </div>,
     document.body
   );

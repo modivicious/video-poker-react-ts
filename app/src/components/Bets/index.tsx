@@ -7,14 +7,21 @@ type BetsProps = {
   currentBet: number;
   onPlus: () => void;
   onMinus: () => void;
+  isDisabled?: boolean;
 };
 
-const Bets = ({ currentBet, onPlus, onMinus }: BetsProps) => {
+const Bets = ({
+  currentBet,
+  onPlus,
+  onMinus,
+  isDisabled = false,
+}: BetsProps) => {
   return (
     <div className={styles.bets}>
       <button
         className={cx(styles.arrow, styles.prev)}
         onClick={() => onMinus()}
+        disabled={isDisabled}
         type="button"
         aria-label="Previous bet"
       />
@@ -24,6 +31,7 @@ const Bets = ({ currentBet, onPlus, onMinus }: BetsProps) => {
       <button
         className={cx(styles.arrow, styles.next)}
         onClick={() => onPlus()}
+        disabled={isDisabled}
         type="button"
         aria-label="Next Bet"
       />
