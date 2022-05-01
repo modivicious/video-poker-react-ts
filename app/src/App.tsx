@@ -9,6 +9,10 @@ import MainButton from "./components/MainButton";
 import PokerTable from "./containers/PokerTable";
 import Controls from "./containers/Controls";
 import Deck from "./functions/Deck";
+import RoundResult from "./portals/RoundResult";
+
+import checkCombination from "./functions/checkCombinations";
+import setDelay from "./functions/setDelay";
 
 const startBalance: number = 50000;
 const bets: number[] = [10000, 20000, 30000, 40000, 50000];
@@ -24,6 +28,15 @@ const App = () => {
   const [isRoundFinished, setIsRoundFinished] = useState(true);
   const [cards, setCards] = useState([]);
   const [holdCards, setHoldCards] = useState([]);
+  const [result, setResult] = useState(-1);
+
+  const changeCards = (cards) => {
+    return cards.map((card) =>
+      holdCards.some((holdCard) => holdCard.id === card.id)
+        ? card
+        : deck.getTopCard()
+    );
+  };
 
   const onPlus = (): void => {
     if (betIndex < bets.length - 1) setBetIndex(betIndex + 1);
@@ -33,20 +46,20 @@ const App = () => {
     if (betIndex > 0) setBetIndex(betIndex - 1);
   };
 
-  const onDeal = (): void => {
+  const onDeal = async (): Promise<void> => {
     if (isRoundFinished) {
       createDeck();
       deck.shuffle();
       setCards(deck.distribution());
     } else {
-      setCards((prev) =>
-        prev.map((card) =>
-          holdCards.some((holdCard) => holdCard.id === card.id)
-            ? card
-            : deck.getTopCard()
-        )
-      );
+      let changedCards = changeCards([...cards]);
+      setCards(changedCards);
+      const combination = checkCombination([...changedCards]);
+      console.log(combination);
       setHoldCards([]);
+      setResult(combination.id);
+      await setDelay(1500);
+      setResult(-1);
     }
     setIsRoundFinished(!isRoundFinished);
   };
@@ -60,21 +73,24 @@ const App = () => {
   };
 
   return (
-    <div className="mainContainer">
-      <PokerTable>
-        <CombinationsTable />
-        <Cards
-          cards={cards}
-          isRoundFinished={isRoundFinished}
-          onHold={onHold}
-        />
-      </PokerTable>
-      <Controls>
-        <Balance balance={balance} />
-        <Bets currentBet={bets[betIndex]} onPlus={onPlus} onMinus={onMinus} />
-        <MainButton text="Deal" onClick={onDeal} />
-      </Controls>
-    </div>
+    <>
+      <div className="mainContainer">
+        <PokerTable>
+          <CombinationsTable />
+          <Cards
+            cards={cards}
+            isRoundFinished={isRoundFinished}
+            onHold={onHold}
+          />
+        </PokerTable>
+        <Controls>
+          <Balance balance={balance} />
+          <Bets currentBet={bets[betIndex]} onPlus={onPlus} onMinus={onMinus} />
+          <MainButton text="Deal" onClick={onDeal} />
+        </Controls>
+      </div>
+      <RoundResult result={result} isOpen={result > -1} />
+    </>
   );
 };
 

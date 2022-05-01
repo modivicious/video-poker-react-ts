@@ -44,4 +44,14 @@
   background: radial-gradient(circle, #19a030 0%, #0f8c23 100%);
 }
 
+// .modal {
+//   visibility: hidden;
+//   opacity: 0;
+//   transition: all 0.2s linear;
+//   &.active {
+//     visibility: visible;
+//     opacity: 1;
+//   }
+// }
+
 @import "media";
