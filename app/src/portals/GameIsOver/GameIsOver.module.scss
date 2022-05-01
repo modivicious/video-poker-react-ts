@@ -1,0 +1,32 @@
+.overModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(#222, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  padding: 50px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 50px;
+  background-color: #f0f0f0;
+  font-size: 22px;
+}
+
+.text {
+  font-size: 30px;
+}
+
+.restart {
+  padding: 15px 40px;
+  background-color: #230f8c;
+  color: #fff;
+  text-transform: uppercase;
+}

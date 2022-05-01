@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import CombinationsTable from "./components/CombinationsTable";
 import Cards from "./containers/Cards";
@@ -10,6 +10,7 @@ import PokerTable from "./containers/PokerTable";
 import Controls from "./containers/Controls";
 import Deck from "./functions/Deck";
 import RoundResult from "./portals/RoundResult";
+import GameIsOver from "./portals/GameIsOver";
 
 import checkCombination from "./functions/checkCombination";
 import setDelay from "./functions/setDelay";
@@ -32,6 +33,7 @@ const App = () => {
   const [holdCards, setHoldCards] = useState([]);
   const [resultAmount, setResultAmount] = useState(0);
   const [resultCombination, setResultCombination] = useState(-1);
+  const [isOver, setIsOver] = useState(false);
 
   const changeCards = (cards) => {
     return cards.map((card) =>
@@ -47,10 +49,15 @@ const App = () => {
     return index;
   };
 
+  const checkBankruptcy = (): void => {
+    if (balance === 0) setIsOver(true);
+  };
+
   const calculateResult = (combination: number): void => {
     if (combination === 0) {
       setResultAmount(-bets[betIndex]);
       if (bets[betIndex] > balance) setBetIndex(findAvailableBetIndex(balance));
+      checkBankruptcy();
     } else {
       const coeff = tableData.find((item) => item.id === combination - 1)
         .coeffs[betIndex];
@@ -96,6 +103,13 @@ const App = () => {
     }
   };
 
+  const onRestart = (): void => {
+    setBalance(startBalance);
+    setBetIndex(0);
+    setCards([]);
+    setIsOver(false);
+  };
+
   return (
     <>
       <div className="mainContainer">
@@ -125,6 +139,7 @@ const App = () => {
         resultAmount={resultAmount}
         isOpen={resultCombination > -1}
       />
+      <GameIsOver isOpen={isOver} onClick={onRestart} />
     </>
   );
 };
