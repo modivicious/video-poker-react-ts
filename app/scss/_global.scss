@@ -22,6 +22,7 @@ body {
 
 button:disabled {
   cursor: default;
+  pointer-events: none;
 }
 
 .display {

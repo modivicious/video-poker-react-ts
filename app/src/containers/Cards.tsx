@@ -6,6 +6,7 @@ type CardsProps = {
   cards: {
     suit: string;
     point: number;
+    id: number;
   }[];
   isRoundFinished: boolean;
   onHold: ({}) => void;
@@ -14,8 +15,9 @@ type CardsProps = {
 const Cards = ({ cards, isRoundFinished, onHold }: CardsProps) => {
   return (
     <div className="cards">
-      {(cards.length ? cards : [...Array(5)]).map((item) => (
+      {(cards.length ? cards : [...Array(5)]).map((item, index) => (
         <CardWithButton
+          key={item?.id || index}
           card={item}
           isRoundFinished={isRoundFinished}
           onHold={onHold}
