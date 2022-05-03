@@ -1,15 +1,12 @@
 import * as React from "react";
 
 import CardWithButton from "./CardWithButton";
+import type Card from "../functions/Card";
 
 type CardsProps = {
-  cards: {
-    suit: string;
-    point: number;
-    id: number;
-  }[];
+  cards: Card[];
   isRoundFinished: boolean;
-  onHold: ({}) => void;
+  onHold: (arg0: Card) => void;
 };
 
 const Cards = ({ cards, isRoundFinished, onHold }: CardsProps) => {
@@ -17,7 +14,7 @@ const Cards = ({ cards, isRoundFinished, onHold }: CardsProps) => {
     <div className="cards">
       {(cards.length ? cards : [...Array(5)]).map((item, index) => (
         <CardWithButton
-          key={item?.id || index}
+          key={item?.id || index - 1000}
           card={item}
           isRoundFinished={isRoundFinished}
           onHold={onHold}

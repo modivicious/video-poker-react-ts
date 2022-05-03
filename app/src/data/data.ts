@@ -51,3 +51,7 @@ export const tableData: Array<ITableData> = [
     id: 0,
   },
 ];
+
+export const betsData: Array<number> = [10000, 20000, 30000, 40000, 50000];
+
+export const startBalance: number = 50000;

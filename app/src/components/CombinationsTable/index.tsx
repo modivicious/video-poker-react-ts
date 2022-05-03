@@ -1,7 +1,7 @@
 import * as React from "react";
 import cx from "classnames";
 
-import { tableData } from "../../data/tableData";
+import { tableData } from "../../data/data";
 
 import * as styles from "./CombinationsTable.module.scss";
 
@@ -41,4 +41,4 @@ const CombinationsTable = ({
   );
 };
 
-export default CombinationsTable;
+export default React.memo(CombinationsTable);

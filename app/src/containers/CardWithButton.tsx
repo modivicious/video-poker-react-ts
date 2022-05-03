@@ -1,16 +1,14 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 
-import Card from "../components/Card";
+import CardComponent from "../components/CardComponent";
+import type Card from "../functions/Card";
 import PressButton from "../components/PressButton";
 
 type CardWithButtonProps = {
-  card: {
-    suit: string;
-    point: number;
-  };
+  card: Card;
   isRoundFinished: boolean;
-  onHold: ({}) => void;
+  onHold: (arg0: Card) => void;
 };
 
 const CardWithButton = ({
@@ -31,7 +29,7 @@ const CardWithButton = ({
 
   return (
     <div className="cardWithButton">
-      <Card card={card} isRoundFinished={isRoundFinished} />
+      <CardComponent card={card} isRoundFinished={isRoundFinished} />
       <PressButton
         text="Hold"
         onClick={onButtonClick}

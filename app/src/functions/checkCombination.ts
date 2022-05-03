@@ -1,8 +1,9 @@
 import sortByPoints from "./sortByPoints";
 import sortBySuits from "./sortBySuits";
 import getCountOfDuplicates from "./getCountOfDuplicates";
+import type Card from "./Card";
 
-const checkCombination = (cards): { name: string; id: number } => {
+const checkCombination = (cards: Card[]): { name: string; id: number } => {
   cards = sortByPoints(cards);
   cards = sortBySuits(cards);
 

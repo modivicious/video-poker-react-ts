@@ -2,20 +2,19 @@ import * as React from "react";
 import cx from "classnames";
 
 import getPoint from "../../functions/getPoint";
+import type Card from "../../functions/Card";
 
 import svgSuits from "../../../images/icons/*.svg";
-import * as styles from "./Card.module.scss";
+
+import * as styles from "./CardComponent.module.scss";
 
 type CardProps = {
-  card: {
-    suit: string;
-    point: number;
-  };
+  card: Card;
   isRoundFinished: boolean;
 };
 
-const Card = ({
-  card = { suit: "", point: 0 },
+const CardComponent = ({
+  card = { suit: "", point: 0, id: Date.now() },
   isRoundFinished,
 }: CardProps) => {
   const point = getPoint(card.point);
@@ -47,4 +46,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default CardComponent;

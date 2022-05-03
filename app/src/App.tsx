@@ -2,40 +2,37 @@ import * as React from "react";
 import { useState } from "react";
 
 import CombinationsTable from "./components/CombinationsTable";
-import Cards from "./containers/Cards";
 import Balance from "./components/Balance";
 import Bets from "./components/Bets";
 import MainButton from "./components/MainButton";
 import PokerTable from "./containers/PokerTable";
+import Cards from "./containers/Cards";
 import Controls from "./containers/Controls";
-import Deck from "./functions/Deck";
+
 import RoundResult from "./portals/RoundResult";
 import GameIsOver from "./portals/GameIsOver";
 
+import Deck from "./functions/Deck";
 import checkCombination from "./functions/checkCombination";
 import setDelay from "./functions/setDelay";
+import type Card from "./functions/Card";
 
-import { tableData } from "./data/tableData";
-
-const startBalance: number = 50000;
-const bets: Array<number> = [10000, 20000, 30000, 40000, 50000];
+import { tableData, betsData as bets, startBalance } from "./data/data";
 
 let deck: Deck;
-const createDeck = () => {
-  deck = new Deck();
-};
+const createDeck = () => (deck = new Deck());
 
 const App = () => {
   const [balance, setBalance] = useState(startBalance);
   const [betIndex, setBetIndex] = useState(0);
   const [isRoundFinished, setIsRoundFinished] = useState(true);
-  const [cards, setCards] = useState([]);
-  const [holdCards, setHoldCards] = useState([]);
+  const [cards, setCards] = useState<Card[]>([]);
+  const [holdCards, setHoldCards] = useState<Card[]>([]);
   const [resultAmount, setResultAmount] = useState(0);
   const [resultCombination, setResultCombination] = useState(-1);
-  const [isOver, setIsOver] = useState(false);
+  const [gameIsOver, setGameIsOver] = useState(false);
 
-  const changeCards = (cards) => {
+  const changeCards = (cards: Card[]) => {
     return cards.map((card) =>
       holdCards.some((holdCard) => holdCard.id === card.id)
         ? card
@@ -50,7 +47,7 @@ const App = () => {
   };
 
   const checkBankruptcy = (): void => {
-    if (balance === 0) setIsOver(true);
+    if (balance === 0) setGameIsOver(true);
   };
 
   const calculateResult = (combination: number): void => {
@@ -67,6 +64,24 @@ const App = () => {
     }
   };
 
+  const startRound = (): void => {
+    createDeck();
+    deck.shuffle();
+    setCards(deck.distribution());
+    setBalance((prev) => prev - bets[betIndex]);
+  };
+
+  const endRound = async (): Promise<void> => {
+    const changedCards = changeCards([...cards]);
+    setCards(changedCards);
+    const combination = checkCombination([...changedCards]);
+    calculateResult(combination.id);
+    setHoldCards([]);
+    setResultCombination(combination.id);
+    await setDelay(1500);
+    setResultCombination(-1);
+  };
+
   const onPlus = (): void => {
     if (betIndex < bets.length - 1 && balance >= bets[betIndex + 1])
       setBetIndex(betIndex + 1);
@@ -76,38 +91,22 @@ const App = () => {
     if (betIndex > 0) setBetIndex(betIndex - 1);
   };
 
-  const onDeal = async (): Promise<void> => {
-    if (isRoundFinished) {
-      createDeck();
-      deck.shuffle();
-      setCards(deck.distribution());
-      setBalance((prev) => prev - bets[betIndex]);
-    } else {
-      let changedCards = changeCards([...cards]);
-      setCards(changedCards);
-      const combination = checkCombination([...changedCards]);
-      calculateResult(combination.id);
-      setHoldCards([]);
-      setResultCombination(combination.id);
-      await setDelay(1500);
-      setResultCombination(-1);
-    }
+  const onDeal = (): void => {
+    isRoundFinished ? startRound() : endRound();
     setIsRoundFinished(!isRoundFinished);
   };
 
-  const onHold = (card): void => {
-    if (holdCards.find((item) => item.id === card.id)) {
-      setHoldCards((prev) => prev.filter((item) => item.id !== card.id));
-    } else {
-      setHoldCards((prev) => [...prev, card]);
-    }
+  const onHold = (card: Card): void => {
+    holdCards.find((item) => item.id === card.id)
+      ? setHoldCards((prev) => prev.filter((item) => item.id !== card.id))
+      : setHoldCards((prev) => [...prev, card]);
   };
 
   const onRestart = (): void => {
     setBalance(startBalance);
     setBetIndex(0);
     setCards([]);
-    setIsOver(false);
+    setGameIsOver(false);
   };
 
   return (
@@ -139,7 +138,7 @@ const App = () => {
         resultAmount={resultAmount}
         isOpen={resultCombination > -1}
       />
-      <GameIsOver isOpen={isOver} onClick={onRestart} />
+      <GameIsOver isOpen={gameIsOver} onClick={onRestart} />
     </>
   );
 };
