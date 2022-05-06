@@ -1,5 +1,8 @@
 import * as React from "react";
+import { useState } from "react";
 import cx from "classnames";
+
+import setDelay from "../../functions/setDelay";
 
 import * as styles from "./MainButton.module.scss";
 
@@ -9,10 +12,20 @@ type MainButtonProps = {
 };
 
 const MainButton = ({ text, onClick }: MainButtonProps) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const onHandleClick = async (): Promise<void> => {
+    onClick();
+    setIsDisabled(true);
+    await setDelay(2300);
+    setIsDisabled(false);
+  };
+
   return (
     <button
       className={cx(styles.mainButton, "button")}
-      onClick={() => onClick()}
+      onClick={() => onHandleClick()}
+      disabled={isDisabled}
       type="button"
     >
       {text}
