@@ -32,13 +32,12 @@ const App = () => {
   const [resultCombination, setResultCombination] = useState(-1);
   const [gameIsOver, setGameIsOver] = useState(false);
 
-  const changeCards = (cards: Card[]) => {
-    return cards.map((card) =>
+  const changeCards = (cards: Card[]): Card[] =>
+    cards.map((card) =>
       holdCards.some((holdCard) => holdCard.id === card.id)
         ? card
         : deck.getTopCard()
     );
-  };
 
   const findAvailableBetIndex = (currentBalance: number): number => {
     let index = betIndex;
@@ -77,10 +76,13 @@ const App = () => {
   const endRound = async (): Promise<void> => {
     const changedCards = changeCards([...cards]);
     setCards(changedCards);
+
     const combination = checkCombination([...changedCards]);
+
     await setDelay(600);
     calculateResult(combination.id);
     setResultCombination(combination.id);
+
     await setDelay(1500);
     setResultCombination(-1);
     setHoldCards([]);

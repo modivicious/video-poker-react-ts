@@ -17,25 +17,23 @@ const CombinationsTable = ({
   return (
     <table className={styles.combinations}>
       <tbody>
-        {tableData.map((data) => {
-          return (
-            <tr key={data.id}>
-              <td className={styles.name}>{data.combination}</td>
-              {data.coeffs.map((coeff, index) => (
-                <td
-                  key={data.combination + coeff}
-                  className={cx({
-                    [styles.activeCol]: index === activeCol,
-                    [styles.winning]:
-                      index === activeCol && data.id === winningCell,
-                  })}
-                >
-                  {coeff}
-                </td>
-              ))}
-            </tr>
-          );
-        })}
+        {tableData.map((data) => (
+          <tr key={data.id}>
+            <td className={styles.name}>{data.combination}</td>
+            {data.coeffs.map((coeff, index) => (
+              <td
+                key={data.combination + coeff}
+                className={cx({
+                  [styles.activeCol]: index === activeCol,
+                  [styles.winning]:
+                    index === activeCol && data.id === winningCell,
+                })}
+              >
+                {coeff}
+              </td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

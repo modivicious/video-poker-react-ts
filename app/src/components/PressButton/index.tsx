@@ -5,14 +5,14 @@ import * as styles from "./PressButton.module.scss";
 
 type PressButtonProps = {
   text: string;
-  onClick?: () => void;
+  onClick: () => void;
   isActive?: boolean;
   isDisabled?: boolean;
 };
 
 const PressButton = ({
   text,
-  onClick = () => {},
+  onClick,
   isActive = false,
   isDisabled = false,
 }: PressButtonProps) => {
@@ -23,7 +23,7 @@ const PressButton = ({
         { [styles.active]: isActive },
         "button"
       )}
-      onClick={() => onClick()}
+      onClick={onClick}
       disabled={isDisabled}
       type="button"
     >

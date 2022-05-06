@@ -20,7 +20,7 @@ const Bets = ({
     <div className={styles.bets}>
       <button
         className={cx(styles.arrow, styles.prev)}
-        onClick={() => onMinus()}
+        onClick={onMinus}
         disabled={isDisabled}
         type="button"
         aria-label="Previous bet"
@@ -30,7 +30,7 @@ const Bets = ({
       </div>
       <button
         className={cx(styles.arrow, styles.next)}
-        onClick={() => onPlus()}
+        onClick={onPlus}
         disabled={isDisabled}
         type="button"
         aria-label="Next Bet"

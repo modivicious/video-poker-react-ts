@@ -1,7 +1,7 @@
 import * as React from "react";
 
-const PokerTable = ({ children }) => {
-  return <div className="pokerTable">{children}</div>;
-};
+const PokerTable = ({ children }) => (
+  <div className="pokerTable">{children}</div>
+);
 
 export default PokerTable;

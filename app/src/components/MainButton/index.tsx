@@ -24,7 +24,7 @@ const MainButton = ({ text, onClick }: MainButtonProps) => {
   return (
     <button
       className={cx(styles.mainButton, "button")}
-      onClick={() => onHandleClick()}
+      onClick={onHandleClick}
       disabled={isDisabled}
       type="button"
     >
