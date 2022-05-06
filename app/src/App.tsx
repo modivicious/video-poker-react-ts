@@ -46,8 +46,11 @@ const App = () => {
     return index;
   };
 
-  const checkBankruptcy = (): void => {
-    if (balance === 0) setGameIsOver(true);
+  const checkBankruptcy = async (): Promise<void> => {
+    if (balance === 0) {
+      await setDelay(1700);
+      setGameIsOver(true);
+    }
   };
 
   const calculateResult = (combination: number): void => {
@@ -75,11 +78,12 @@ const App = () => {
     const changedCards = changeCards([...cards]);
     setCards(changedCards);
     const combination = checkCombination([...changedCards]);
+    await setDelay(600);
     calculateResult(combination.id);
-    setHoldCards([]);
     setResultCombination(combination.id);
     await setDelay(1500);
     setResultCombination(-1);
+    setHoldCards([]);
   };
 
   const onPlus = (): void => {
@@ -134,11 +138,12 @@ const App = () => {
           <MainButton text="Deal" onClick={onDeal} />
         </Controls>
       </div>
+
       <RoundResult
+        shouldShow={resultCombination > -1}
         resultAmount={resultAmount}
-        isOpen={resultCombination > -1}
       />
-      <GameIsOver isOpen={gameIsOver} onClick={onRestart} />
+      <GameIsOver shouldShow={gameIsOver} onClick={onRestart} />
     </>
   );
 };

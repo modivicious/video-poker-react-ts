@@ -51,6 +51,7 @@
   letter-spacing: -0.08em;
   margin-bottom: 4px;
   color: #121510;
+  transition: all 0.08s;
   &.red {
     color: #dc0614;
   }
@@ -61,6 +62,7 @@
   height: 50px;
   align-self: center;
   justify-self: center;
+  transition: all 0.08s;
   &.small {
     width: 15px;
     height: 15px;

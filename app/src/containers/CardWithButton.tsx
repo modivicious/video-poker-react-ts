@@ -29,7 +29,7 @@ const CardWithButton = ({
 
   return (
     <div className="cardWithButton">
-      <CardComponent card={card} isRoundFinished={isRoundFinished} />
+      <CardComponent card={card} />
       <PressButton
         text="Hold"
         onClick={onButtonClick}
