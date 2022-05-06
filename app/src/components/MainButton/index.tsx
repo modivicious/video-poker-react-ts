@@ -17,7 +17,7 @@ const MainButton = ({ text, onClick }: MainButtonProps) => {
   const onHandleClick = async (): Promise<void> => {
     onClick();
     setIsDisabled(true);
-    await setDelay(2300);
+    await setDelay(1700);
     setIsDisabled(false);
   };
 

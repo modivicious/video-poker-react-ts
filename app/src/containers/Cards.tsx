@@ -14,7 +14,6 @@ const Cards = ({ cards, isRoundFinished, onHold }: CardsProps) => {
     <div className="cards">
       {(cards.length ? cards : [...Array(5)]).map((item, index) => (
         <CardWithButton
-          // key={item?.id || index - 1000}
           key={index - 1000}
           card={item}
           isRoundFinished={isRoundFinished}
